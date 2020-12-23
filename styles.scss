@@ -1,0 +1,163 @@
+$midnight: #2c3e50;
+$clouds: #ecf0f1;
+$TransitionTime: 0.25s;
+$FontSize_ctrl: 16px;
+
+// General
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  color: $midnight;
+  background: $clouds;
+  /* padding: 0 1em 1em; */
+}
+h1 {
+  margin: 0;
+  line-height: 2;
+  text-align: center;
+}
+h2 {
+  margin: 0 0 .5em;
+  font-weight: normal;
+}
+
+input[name="rd"] {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+// Layout
+.row {
+  display:flex;
+  .col {
+    flex:1;
+    &:last-child {
+      margin-left: 0; /*1em; */
+    }
+  }
+}
+/* Accordion styles */
+.tabs {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);
+}
+.tab {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+  &-label {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    background: $midnight;
+    font-weight: bold;
+    cursor: pointer;
+    /* Icon */
+    &:hover {
+      background: darken($midnight, 10%);
+    }
+    &::after {
+      content: "\276F";
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      transition: all $TransitionTime;
+    }
+  }
+  &-content {
+    max-height: 0;
+    padding: 0 1em;
+    color: $midnight;
+    background: white;
+    transition: all $TransitionTime;
+  }
+  &-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    font-size: 0.75em;
+    background: $midnight;
+    cursor: pointer;
+    &:hover {
+      background: darken($midnight, 10%);
+    }
+  }
+}
+
+// :checked
+input:checked {
+  + .tab-label {
+    background: darken($midnight, 10%);
+    &::after {
+      transform: rotate(90deg);
+    }
+  }
+  ~ .tab-content {
+    max-height: 100vh;
+    padding: 1em;
+  }
+}
+
+
+// DROPDOWN CONTENT -----------------------------------
+.txtInput {
+  position: relative;
+  opacity: 1;
+  z-index: auto;
+  box-sizing: border-box;
+  background-image: url('./SearchIcon.png');
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  background-size: 20px auto;
+  font-size: $FontSize_ctrl;
+  padding: 14px 20px 12px 45px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  /*border: none;
+  border-bottom: 1px solid #ddd;*/
+}
+
+.txtInput:focus {
+  box-shadow: 0 0 3pt 2pt #ddd;
+  /*outline: 3px solid #ddd;*/
+}
+
+.dropdown {
+  /*
+  position: relative;
+  display: inline-block;
+  */
+  position: relative;
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+  //display: block;
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  overflow: auto;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+.show {display: block;}
+
+.Chkbx_Container {
+  display: block;
+  position: relative;
+  padding-left: 6px;
+  margin-top: 12px;
+  cursor: pointer;
+  font-size: $FontSize_ctrl;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
