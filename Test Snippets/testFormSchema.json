@@ -1,0 +1,99 @@
+{
+    "firstName":{
+        "title": "First Name",
+        "type": "text",
+        "required": true
+    },
+    "lastName":{
+        "title": "Last Name",
+        "type": "text",
+        "required": true    
+    },
+    "id":{
+        "title": "ID. Number",
+        "type": "number",
+        "required": true
+    },
+    "dob": {
+        "title": "Date of Birth",
+        "type": "date",
+        "required": true
+    },
+    "gender":{
+        "title": "Gender",
+        "type": "radio",
+        "required": true,
+        "options" : ["male", "female", "transgender"]
+    },
+    "ethnicity":{
+        "title": "Ethnicity",
+        "type": "radio",
+        "required": true,
+        "options" : ["african", "indian", "caucasian", "asian", "coloured", "mixed"]
+    },
+    "medAid":{
+        "title": "Medical Aid",
+        "type": "radio",
+        "required": true,
+        "options" : ["none", "bonitas", "discovery", "gems", "sanlam"]
+    },
+    "medAidNum":{
+        "title": "Membership Number",
+        "type": "number",
+        "required": false
+    },
+    "streetAddress":{
+        "title": "Street Address",
+        "type": "text",
+        "required": true    
+    },
+    "postalAddress":{
+        "title": "Postal Address",
+        "type": "text",
+        "required": false    
+    },
+    "email":{
+        "title": "Email Address",
+        "type": "text",
+        "required": true    
+    },
+    "altEmail":{
+        "title": "Alternate Email Address",
+        "type": "text",
+        "required": false    
+    },
+    "homePhoneNum":{
+        "title": "Home Phone Number",
+        "type": "number",
+        "required": true
+    },
+    "workPhoneNum":{
+        "title": "Work Phone Number",
+        "type": "number",
+        "required": true
+    },
+    "cellPhoneNum":{
+        "title": "Cell Phone Number",
+        "type": "number",
+        "required": true
+    },
+    "familyHistory":{
+        "title": "Family History",
+        "type": "checkbox",
+        "required": true,
+        "options": ["high blood pressure",
+                    "high cholesterol",
+                    "cancer"
+        ]
+    },
+    "chronicConditions":{
+        "title": "Chronic Conditions",
+        "type": "checkbox",
+        "required": true,
+        "options": ["high blood pressure",
+                    "arthritis",
+                    "migraine headaches",
+                    "high cholesterol"
+        ]
+    }
+}

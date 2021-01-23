@@ -19,9 +19,11 @@
               <!-- <p> Hello </p> -->
               <div id="Dropdown1">  <!-- class="dropdown-content"> -->
                 <div class="Buttons">
-                  <button type="button" onclick='btnShowSelected("checkbox", 1)' name="btn_Chkbox">Show Checked</button>
-                  <button type="button" onclick="btnShowAllCheckboxes(1)" name="btn_Chkbox">Show All</button>
-                  <button type="button" onclick='btnReset("checkbox", 1)' name="btn_Chkbox">Reset</button>
+                  <!-- <button><span class="credits"></span></button> -->
+                  <button type="button" class="button" onclick='btnClearTextSearch("txtInput", 1)' name="btn_Chkbox">Clear Text</button>
+                  <button type="button" class="button" onclick='btnShowSelected("checkbox", 1)' name="btn_Chkbox">Show Checked</button>
+                  <button type="button" class="button" onclick="btnShowAllCheckboxes(1)" name="btn_Chkbox">Show All</button>
+                  <button type="button" class="button" onclick='btnReset("checkbox", 1)' name="btn_Chkbox">Reset</button>
                 </div>
                 <input type="text" placeholder="Search..." class="txtInput" id="txtInput1" onkeyup="filterFunction(1)"> 
 
@@ -54,7 +56,7 @@
             </div>
           </div>
           <div class="tab">
-            <input type="radio" id="rd2" name="rd">
+            <input type="radio" id="rd2" name="rd" onclick="ShowDropdownContent(2)">
             <label class="tab-label" for="rd2">Item 2</label>
 
             
@@ -62,9 +64,10 @@
                 <!-- <p> Hello </p> -->
               <div id="Dropdown2">  <!-- class="dropdown-content"> -->
                 <div class="Buttons">
-                  <button type="button" onclick='btnShowSelected("radio", 2)' name="btn_Chkbox">Show Checked</button>
-                  <button type="button" onclick="btnShowAllCheckboxes(2)" name="btn_Chkbox">Show All</button>
-                  <button type="button" onclick='btnReset("radio", 2)' name="btn_Chkbox">Reset</button>
+                  <button type="button" class="button" onclick='btnClearTextSearch("txtInput", 2)' name="btn_Chkbox">Clear Text</button>
+                  <button type="button" class="button" onclick='btnShowSelected("radio", 2)' name="btn_Chkbox">Show Checked</button>
+                  <button type="button" class="button" onclick="btnShowAllCheckboxes(2)" name="btn_Chkbox">Show All</button>
+                  <button type="button" class="button" onclick='btnReset("radio", 2)' name="btn_Chkbox">Reset</button>
                 </div>
 
                 <input type="text" placeholder="Search..." class="txtInput" id="txtInput2" onkeyup="filterFunction(2)"> 

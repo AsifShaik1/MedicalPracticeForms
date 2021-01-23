@@ -56,7 +56,7 @@ input[name="rd"] {
       transition: all 0.25s; }
   .tab-content {
     max-height: 0;
-    padding: 0 1em;
+    padding: 0em 1em;
     color: #2c3e50;
     background: white;
     transition: all 0.25s; }
@@ -84,7 +84,7 @@ input:checked ~ .tab-content {
   opacity: 1;
   z-index: auto;
   box-sizing: border-box;
-  background-image: url("./SearchIcon.png");
+  background-image: url("../Assets/SearchIcon.png");
   background-position: 14px 12px;
   background-repeat: no-repeat;
   background-size: 20px auto;
@@ -130,3 +130,7 @@ input:checked ~ .tab-content {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
+
+.button {
+  text-align: center;
+  margin: 0em 0.25em 1em 0.25em; }
