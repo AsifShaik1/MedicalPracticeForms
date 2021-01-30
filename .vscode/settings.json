@@ -1,0 +1,8 @@
+{
+    "liveServer.settings.https": {
+    "enable": false, //set it true to enable the feature.
+    "cert": "C:\\Users\\Asif\\OneDrive\\My_Projects\\Mine\\Apps\\Forms - Medical App\\Certificates\\primary.crt", //full path of the certificate
+    "key": "C:\\Users\\Asif\\OneDrive\\My_Projects\\Mine\\Apps\\Forms - Medical App\\Certificates\\private.key", //full path of the private key
+    "passphrase": "12345"
+    }
+}

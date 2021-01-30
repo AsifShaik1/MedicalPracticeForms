@@ -13,10 +13,12 @@
         <h2>Open <b>one</b></h2>
         <div class="tabs">
           <div class="tab">
-            <input type="radio" id="rd1" name="rd" onclick="ShowDropdownContent(1)">
+            <input type="radio" id="rd1" name="ddc_rc"> <!-- onclick="ShowDropdownContent(1)" -->
             <label class="tab-label" for="rd1">Item 1</label>
+            
             <div class="tab-content">
               <!-- <p> Hello </p> -->
+               
               <div id="Dropdown1">  <!-- class="dropdown-content"> -->
                 <div class="Buttons">
                   <!-- <button><span class="credits"></span></button> -->
@@ -25,27 +27,27 @@
                   <button type="button" class="button" onclick="btnShowAllCheckboxes(1)" name="btn_Chkbox">Show All</button>
                   <button type="button" class="button" onclick='btnReset("checkbox", 1)' name="btn_Chkbox">Reset</button>
                 </div>
-                <input type="text" placeholder="Search..." class="txtInput" id="txtInput1" onkeyup="filterFunction(1)"> 
+                <input type="text" placeholder="Search..." class="txtInput txtSearch" id="txtInput1" onkeyup="filterFunction(1)"> 
 
-                <label class="Chkbx_Container" name="Chkbx_dd">
+                <label class="lblRcInput" name="Chkbx_dd">
                   <input type="checkbox" >
                   <span class="checkmark"></span>
                   One
                 </label>
           
-                <label class="Chkbx_Container" name="Chkbx_dd">
+                <label class="lblRcInput" name="Chkbx_dd">
                   <input type="checkbox" >
                   <span class="checkmark"></span>
                   Two
                 </label>
           
-                <label class="Chkbx_Container" name="Chkbx_dd">
+                <label class="lblRcInput" name="Chkbx_dd">
                   <input type="checkbox" >
                   <span class="checkmark"></span>
                   Three
                 </label>
           
-                <label class="Chkbx_Container" name="Chkbx_dd">
+                <label class="lblRcInput" name="Chkbx_dd">
                   <input type="checkbox" >
                   <span class="checkmark"></span>
                   Four
@@ -55,8 +57,9 @@
               <!-- <p> Bye </p> -->
             </div>
           </div>
+          
           <div class="tab">
-            <input type="radio" id="rd2" name="rd" onclick="ShowDropdownContent(2)">
+            <input type="radio" id="rd2" name="ddc_rc"> <!-- onclick="ShowDropdownContent(2)" -->
             <label class="tab-label" for="rd2">Item 2</label>
 
             
@@ -70,27 +73,27 @@
                   <button type="button" class="button" onclick='btnReset("radio", 2)' name="btn_Chkbox">Reset</button>
                 </div>
 
-                <input type="text" placeholder="Search..." class="txtInput" id="txtInput2" onkeyup="filterFunction(2)"> 
+                <input type="text" placeholder="Search..." class="txtInput txtSearch" id="txtInput2" onkeyup="filterFunction(2)"> 
 
-                <label class="Chkbx_Container" >
+                <label class="lblRcInput" >
                   <input type="radio" name="Rdobt_dd">
                   
                   One
                 </label>
           
-                <label class="Chkbx_Container">
+                <label class="lblRcInput">
                   <input type="radio" name="Rdobt_dd">
                   
                   Two
                 </label>
           
-                <label class="Chkbx_Container">
+                <label class="lblRcInput">
                   <input type="radio" name="Rdobt_dd">
                   
                   Three
                 </label>
           
-                <label class="Chkbx_Container">
+                <label class="lblRcInput">
                   <input type="radio" name="Rdobt_dd">
                   
                   Four
@@ -102,8 +105,9 @@
 
 
           </div>
+        
           <div class="tab">
-            <input type="radio" id="rd3" name="rd">
+            <input type="radio" id="rd3" name="ddc_rc">
             <label for="rd3" class="tab-close">Close All &times;</label>
           </div>
         </div>

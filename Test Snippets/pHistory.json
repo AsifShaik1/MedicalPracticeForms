@@ -1,0 +1,23 @@
+{
+    "familyHistory":{
+        "title": "Family History",
+        "type": "checkbox",
+        "required": true,
+        "options": ["other", 
+            "high blood pressure",
+            "high cholesterol",
+            "cancer"
+        ]
+    },
+    "chronicConditions":{
+        "title": "Chronic Conditions",
+        "type": "checkbox",
+        "required": true,
+        "options": ["other",
+            "high blood pressure",
+            "arthritis",
+            "migraine headaches",
+            "high cholesterol"
+        ]
+    }
+}

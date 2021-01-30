@@ -4,9 +4,23 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Sass Compile",
+            "label": "Sass Complie All",
+            "type": "shell",
+            "command": "echo",
+            "args": ["Compiling all SASS..."],
+            "group": "build",
+            "dependsOn":["Sass 1", "Sass 2"]
+        },
+        {
+            "label": "Sass 1",
             "type": "shell",
             "command": "node-sass ./Source/SCSS/styles.scss ./Source/CSS/styles.css",
+            "group": "build"
+        },
+        {
+            "label": "Sass 2",
+            "type": "shell",
+            "command": "node-sass ./Source/SCSS/styles.scss ./Source/CSS/formStyles.css",
             "group": "build"
         }
     ]

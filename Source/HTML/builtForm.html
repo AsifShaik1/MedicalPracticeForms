@@ -3,12 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta rel="manifest" href="../../manifest.webmanifest">
         <link rel="stylesheet" href="../CSS/formStyles.css" >
         <script type="text/javascript" src="../Javascript/formBuilder.js"> </script>
     </head>
     <body>
         <script type="text/javascript">
-            document.body.onload = requestSchema(); //buildForm();
+            //requests the json form template, then builds the html form
+            document.body.onload = requestSchema(); //calls buildForm();
         </script>
 
         <!--

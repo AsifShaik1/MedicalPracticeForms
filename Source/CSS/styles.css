@@ -9,13 +9,19 @@ body {
 h1 {
   margin: 0;
   line-height: 2;
-  text-align: center; }
+  text-align: center;
+  font-size: 22px; }
 
 h2 {
   margin: 0 0 .5em;
   font-weight: normal; }
 
-input[name="rd"] {
+input[name="ddc_rc"] {
+  position: absolute;
+  opacity: 0;
+  z-index: -1; }
+
+input[name="ddc_rc_inner"] {
   position: absolute;
   opacity: 0;
   z-index: -1; }
@@ -32,7 +38,7 @@ input[name="rd"] {
 .tabs {
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5); }
+  /*box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);*/ }
 
 .tab {
   width: 100%;
@@ -41,11 +47,11 @@ input[name="rd"] {
   .tab-label {
     display: flex;
     justify-content: space-between;
-    padding: 1em;
+    padding: 1em 1.5em;
     background: #2c3e50;
     font-weight: bold;
     cursor: pointer;
-    /* Icon */ }
+    /* The Chevron Icon > */ }
     .tab-label:hover {
       background: #1a252f; }
     .tab-label::after {
@@ -56,7 +62,7 @@ input[name="rd"] {
       transition: all 0.25s; }
   .tab-content {
     max-height: 0;
-    padding: 0em 1em;
+    padding: 0em 0em;
     color: #2c3e50;
     background: white;
     transition: all 0.25s; }
@@ -76,20 +82,53 @@ input:checked + .tab-label {
     transform: rotate(90deg); }
 
 input:checked ~ .tab-content {
-  max-height: 100vh;
-  padding: 1em; }
+  max-height: none;
+  padding: 0em; }
+
+.tab-inner {
+  width: 100%;
+  color: white;
+  overflow: hidden; }
+  .tab-inner-label {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 1.5em;
+    background: #507192;
+    font-weight: bold;
+    cursor: pointer;
+    /* The Chevron Icon > */ }
+    .tab-inner-label:hover {
+      background: #3e5871; }
+    .tab-inner-label::after {
+      content: "\276F";
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      transition: all 0.25s; }
+  .tab-inner-content {
+    max-height: 0;
+    padding: 0em 1em 0em 2em;
+    color: #2c3e50;
+    background: white;
+    transition: all 0.25s; }
+
+input:checked + .tab-inner-label {
+  background: #3e5871; }
+  input:checked + .tab-inner-label::after {
+    transform: rotate(90deg); }
+
+input:checked ~ .tab-inner-content {
+  max-height: none;
+  padding: 1em 1em 1em 2em; }
 
 .txtInput {
+  display: block;
   position: relative;
   opacity: 1;
   z-index: auto;
   box-sizing: border-box;
-  background-image: url("../Assets/SearchIcon.png");
-  background-position: 14px 12px;
-  background-repeat: no-repeat;
-  background-size: 20px auto;
   font-size: 16px;
-  padding: 14px 20px 12px 45px;
+  padding: 12px 15px 10px 40px;
   border: 1px solid #ddd;
   border-radius: 6px;
   /*border: none;
@@ -98,6 +137,13 @@ input:checked ~ .tab-content {
 .txtInput:focus {
   box-shadow: 0 0 3pt 2pt #ddd;
   /*outline: 3px solid #ddd;*/ }
+
+.txtSearch {
+  background-image: url("../Assets/SearchIcon.png");
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  background-size: 20px auto;
+  margin: 0.75em 0em 0em 0em; }
 
 .dropdown {
   /*
@@ -119,11 +165,23 @@ input:checked ~ .tab-content {
 .show {
   display: block; }
 
-.Chkbx_Container {
+.lblRcInput {
   display: block;
   position: relative;
   padding-left: 6px;
-  margin-top: 12px;
+  margin: 5px 0px 5px 0px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.lblTitle {
+  display: block;
+  position: relative;
+  padding-left: 6px;
+  margin: 0px 0px 6px 0px;
   cursor: pointer;
   font-size: 16px;
   -webkit-user-select: none;
@@ -133,4 +191,25 @@ input:checked ~ .tab-content {
 
 .button {
   text-align: center;
-  margin: 0em 0.25em 1em 0.25em; }
+  font-size: 16px;
+  margin: 0em 0.5em 0em 0.0em; }
+
+.btnSubmit {
+  text-align: center;
+  font-size: 16px;
+  margin: 0em 0.5em 0em 0.0em; }
+
+.divField {
+  padding: 0.75em 0.5em 0.75em 0.5em; }
+
+.divBtnCollapse_sticky {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #ecf0f1;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  font-size: 16px;
+  z-index: 10000; }

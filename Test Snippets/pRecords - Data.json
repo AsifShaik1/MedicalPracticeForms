@@ -1,0 +1,26 @@
+{
+    "pqrgst" : {
+        "2020-11-12":{
+            "facility": "xor123", 
+            "dr": "qrtgs",
+            "refNum" : "i1234pd",
+            "symtoms": ["cough", "heavy chest", "runny nose", "headaches"], 
+            "tests" : ["glucose", "cholesterol"],
+            "testResults": [],
+            "diagnosis": [],
+            "charge" : 250,
+            "paid" : 100
+        },
+        "2021-01-18":{
+            "facility": "yvz123", 
+            "dr": "mlshg",
+            "refNum" : "i1234pd",
+            "symtoms": ["stomach ache", "joint ache"], 
+            "tests" : ["urine"],
+            "testResults": [],
+            "diagnosis": [],
+            "charge" : 500,
+            "paid" : 200
+        }
+    }
+}

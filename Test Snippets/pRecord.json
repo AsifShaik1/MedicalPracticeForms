@@ -1,0 +1,29 @@
+{
+    "date": {
+        "title": "Date",
+        "type": "date",
+        "required": true
+    },
+    "symptoms":{
+        "title": "symptoms",
+        "type": "checkbox",
+        "required": true,
+        "options": ["cough", 
+            "heavy chest", 
+            "tight chest", 
+            "runny nose", 
+            "headaches", 
+            "joint pain", 
+            "rash", 
+            "insect sting"
+        ]
+    },
+    "tests" : {
+        "title": "Tests Required",
+        "type": "checkbox",
+        "required": true,
+        "options":["glucose", 
+            "cholesterol"
+        ]
+    }    
+}

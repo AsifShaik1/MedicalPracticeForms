@@ -4,6 +4,11 @@
         "type": "text",
         "required": true
     },
+    "middleName":{
+        "title": "Middle Name",
+        "type": "text",
+        "required": false
+    },
     "lastName":{
         "title": "Last Name",
         "type": "text",
@@ -35,7 +40,7 @@
         "title": "Medical Aid",
         "type": "radio",
         "required": true,
-        "options" : ["none", "bonitas", "discovery", "gems", "sanlam"]
+        "options" : ["none", "other", "bonitas", "discovery", "gems", "sanlam"]
     },
     "medAidNum":{
         "title": "Membership Number",
@@ -76,24 +81,5 @@
         "title": "Cell Phone Number",
         "type": "number",
         "required": true
-    },
-    "familyHistory":{
-        "title": "Family History",
-        "type": "checkbox",
-        "required": true,
-        "options": ["high blood pressure",
-                    "high cholesterol",
-                    "cancer"
-        ]
-    },
-    "chronicConditions":{
-        "title": "Chronic Conditions",
-        "type": "checkbox",
-        "required": true,
-        "options": ["high blood pressure",
-                    "arthritis",
-                    "migraine headaches",
-                    "high cholesterol"
-        ]
     }
 }
