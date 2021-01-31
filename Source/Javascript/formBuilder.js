@@ -29,6 +29,14 @@ function testProperCase(sentence){
     console.log("hELLO   THIS is     the Wrong   cASE.".toProperCase())
 }
 
+function onSubmit(){
+    //when sending data, send 2 parts
+    //part 1 is the form edits...
+    //form edits must contain 
+    //part 2 is the form data
+}
+
+
 function requestSchema() {
     //testProperCase();
     
@@ -41,9 +49,13 @@ function requestSchema() {
     //}
     
     //Replace the file location below with a request to a database.
-    let filesNames = ["pDetails", "pHistory", "pRecord"];
+    let filesNames = ["updateOptions"];
+    let groupTitles = ["Update Options"];
+
+    //let filesNames = ["pDetails", "pHistory", "pRecord"];    
+    //let groupTitles = ["Patient Details", "Patient History", "Patient Record"];
+
     let numFiles = filesNames.length;
-    let groupTitles = ["Patient Details", "Patient History", "Patient Record"];
     let filesTitlesArray = [];
     filesNames.forEach(function(element, j){
         filesTitlesArray.push({
@@ -176,6 +188,7 @@ function buildForm(toBuildArray){ //jsonSchemaText){
     //console.log(toBuildArray);
 
     let gbl_Z_Index = 1;
+    let gbl_AllowEdits = true;
 
     //CHECK IF THERE IS A FORM
     let eForm = document.querySelector("form");
@@ -188,6 +201,7 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         gblCloseAll.forEach(function(obj_i){
             //console.log(obj_i)
             obj_i.checked = false;
+            window.scroll(0,0); //scroll to top
         });
         //let fGroups = document.getElementsByName("ddc_rc");
         //console.log(fGroups);
@@ -205,6 +219,16 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         //let fGroups = document.getElementsByName("ddc_rc");
         //console.log(fGroups);
         //console.log(event)
+    };
+
+    function openAllInnerGroups(){
+        //console.log("btnCollapseInner onClick")
+        let innCloseAll = document.querySelectorAll('input[name="ddc_rc_inner"]');
+        //console.log(innCloseAll)
+        innCloseAll.forEach(function(obj_i){
+            //console.log(obj_i)
+            obj_i.checked = true;
+        });
     };
 
     if(eForm === null){
@@ -395,29 +419,39 @@ function buildForm(toBuildArray){ //jsonSchemaText){
             searchHelp(tDiv, strIdentifier, fieldType)
         }
 
+        //let containsOtherOption = false;
+
         arrayOptions.forEach(function(opt, idx){
-            opt = opt.toProperCase();
-            let rcInput = document.createElement("input");
-            rcInput.type = fieldType;
-            rcInput.id = "rci_" + strIdentifier + "_" + idx;
-            rcInput.name = strIdentifier; 
-            rcInput.value = opt;
-            rcInput.className = "rciInput";
-            rcInput.style.zIndex = zIndex;
+            let rcInputField = addOption(tDiv, fieldType, opt, strIdentifier, idx, zIndex);
 
-            let checkMarkSpan = document.createElement("span");
-            checkMarkSpan.className = "checkmark";
-            checkMarkSpan.style.zIndex = zIndex;
+            //opt = opt.toProperCase();
+            //let rcInput = document.createElement("input");
+            //rcInput.type = fieldType;
+            //rcInput.id = "rci_" + strIdentifier + "_" + idx;
+            //rcInput.name = strIdentifier; 
+            //rcInput.value = opt;
+            //rcInput.className = "rciInput";
+            //rcInput.style.zIndex = zIndex;
 
-            let lblRcInput = document.createElement("label");
-            //lblRcInput.htmlFor = rcInput.id;
-            lblRcInput.name = "lblrc_" + strIdentifier;
-            lblRcInput.className = "lblRcInput";
-            lblRcInput.style.zIndex = zIndex;
-            lblRcInput.innerHTML = rcInput.outerHTML + checkMarkSpan.outerHTML + rcInput.value;
+            // //ADD ONCLICK FUNCTION TO SHOW EDIT CONTROLS, IF GLOBALEDIT IS SET TO TRUE
+            // //check if other is an option, if so will add a text input to enter value
+            // //if (txtValue_upper.indexOf("OTHER") > -1) {
+            // //    containsOtherOption = true;
+            // //};
 
-            tDiv.appendChild(lblRcInput);
-            //tDiv.appendChild(rcInput);
+            //let checkMarkSpan = document.createElement("span");
+            //checkMarkSpan.className = "checkmark";
+            //checkMarkSpan.style.zIndex = zIndex;
+
+            //let lblRcInput = document.createElement("label");
+            // //lblRcInput.htmlFor = rcInput.id;
+            //lblRcInput.name = "lblrc_" + strIdentifier;
+            //lblRcInput.className = "lblRcInput";
+            //lblRcInput.style.zIndex = zIndex;
+            //lblRcInput.innerHTML = rcInput.outerHTML + checkMarkSpan.outerHTML + rcInput.value;
+
+            //tDiv.appendChild(lblRcInput);
+            // //tDiv.appendChild(rcInput);
         })
     }
 
@@ -431,15 +465,18 @@ function buildForm(toBuildArray){ //jsonSchemaText){
     }
 
     /* SHOW CHECKED CHECKBOXES ONLY */
-    function showSelected(txtSearchId, pDiv, rcInputType) {
+    function showSelected(txtSearchId, pDiv, rcInputType, boolResetSearchText = true) {
         //Clear The text in the search text box
-        let searchTxt, a, rc_bx;
-        searchTxt = document.getElementById(txtSearchId);
-        searchTxt.value = "";
-
+        let a, rc_bx;
+        if(boolResetSearchText){
+            let searchTxt;
+            searchTxt = document.getElementById(txtSearchId);
+            searchTxt.value = "";
+        } 
+        
         //Get all the label elements in the parent div
         a = pDiv.querySelectorAll('.lblRcInput'); //Selecting by classname
-        
+        let selectedRC = [];
         for (i = 0; i < a.length; i++) {
             //chk_bx = a[i].getElementsByTagName("input")
             //was ... chk_bx = a[i].querySelectorAll('input[type="checkbox"]:checked');
@@ -454,11 +491,13 @@ function buildForm(toBuildArray){ //jsonSchemaText){
                 //console.log("rc_bx.tagName: " + rc_bx.tagName);
     
                 a[i].style.display = "";
+                selectedRC.push(a[i]);
             } 
             else {
                 a[i].style.display = "none";
             }
         }
+        return selectedRC;
     }
 
     /* SHOW ALL CHECKBOXES ONLY */
@@ -499,24 +538,224 @@ function buildForm(toBuildArray){ //jsonSchemaText){
 
     /* FILTERS THE OPTIONS AVAILABLE BASED ON USER TYPED TEXT */
     function filterFunction(txtSearchId, pDiv) {
+        
         let input, filter, a;
         input = document.getElementById(txtSearchId);
+
+        //Change case and remove multiple spaces
         filter = input.value.toUpperCase();
+        filter = filter.replace(/  +/g, ' ');
+        filter_segments = filter.split(" ");
         //div = document.getElementById("Dropdown".concat(i));
 
         //a = div.getElementsByTagName("a");
+        //Get all the options
         a = pDiv.querySelectorAll(".lblRcInput"); /* Overwirtes the previous a variable, this one gets all checkboxes.*/
+        let ai_display = [];
+        let enableEdit = false;
 
         for (i = 0; i < a.length; i++) {
+            ai_display.push(true);
             txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                a[i].style.display = "";
-            } else {
-                a[i].style.display = "none";
+            txtValue_upper = txtValue.toUpperCase();
+
+            filter_segments.forEach(function(txtSeg){
+                if (txtValue_upper.indexOf(txtSeg) > -1) {
+                    //a[i].style.display = "";
+                    ai_display[i] = ai_display[i] && true; //Now will only be true if all
+                    //filtersegments are found
+                } else {
+                    ai_display[i] = ai_display[i] && false;
+                    //a[i].style.display = "none";
+                };
+                
+                //If the user typed in edit, enable edit functionality
+                if (txtSeg === "EDIT"){
+                    enableEdit = true;
+                };
+            });
+            ai_display.forEach(function(wasFound){
+                if (wasFound) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            });
+        };
+
+        //Shows the edit mode div with edit controls
+        enterEditMode(pDiv, txtSearchId, enableEdit, gbl_AllowEdits);
+    }    
+
+
+    function returnSearchEditDivs(pDiv){
+        let innerDivs = pDiv.getElementsByTagName("div");
+        let editOptionsDiv;
+        let optSearchTextDiv;
+        let searchButtonsDiv;
+        for (j = 0; j < innerDivs.length; j++) {
+            //console.log(innerDivs[j]);
+            if (innerDivs[j].name === "editOptionsDiv"){
+                editOptionsDiv = innerDivs[j];
             }
-        }
+            //optSearchTextDiv searchButtonsDiv
+            if (innerDivs[j].name === "optSearchTextDiv"){
+                optSearchTextDiv = innerDivs[j];
+            }
+            if (innerDivs[j].name === "searchButtonsDiv"){
+                searchButtonsDiv = innerDivs[j];
+            }
+        };
+        return {searchButtonsDiv, optSearchTextDiv, editOptionsDiv}
+    };
+
+
+    function enterEditMode(parDiv, searchTxtInputID, localEnableEdit, globalAllowEdits){
+        let searchEditDivs = returnSearchEditDivs(parDiv);
+        //If user enabled edit functionality, and global edit flag enabled
+        //then show the edit tool bar.
+        if (localEnableEdit && globalAllowEdits){
+            //searchTxtInput.value = ""; //reset the search text
+            searchEditDivs.editOptionsDiv.style.display = "";
+            searchEditDivs.optSearchTextDiv.style.display = "";
+
+            //show all options, clear search text box
+            showAllRcBoxes(searchTxtInputID, parDiv);
+        };
     }
-    
+
+
+    function exitEditMode(pDiv, searchTxtInputID) {
+        let seDivs = returnSearchEditDivs(pDiv);
+        //Dont know the order of the innerdivs, and number (2 or 3), so set the 
+        //the display or visible css properties individucally
+        if(seDivs.editOptionsDiv !== null){
+            seDivs.editOptionsDiv.style.display = "none";
+            if(seDivs.searchButtonsDiv === null){
+                //if we dont have search buttons, set the search text div
+                //to not visible.
+                seDivs.optSearchTextDiv.style.display = "none";
+            }
+        };
+        //show all options, clear search text box
+        showAllRcBoxes(searchTxtInputID, pDiv);
+    }
+
+    function deleteOptions(pDiv, tSearchId, rc_Type){
+        let selectedItems;
+        selectedItems = showSelected(tSearchId, pDiv, rc_Type);
+        let selectedCount = selectedItems.length;
+        if(selectedCount > 0){
+            let str_this_these = "";
+            str_this_these = selectedCount === 1 ? "this" : "these";
+            let str_option_s = ""
+            str_option_s = selectedCount === 1 ? "" : "s";
+            if (window.confirm(`Are you sure you want to delete ${str_this_these} ${selectedCount} option${str_option_s}!`)) {
+                //TODO: delete options, must record which options have been deleted and send 
+                //with form data.
+                selectedItems.forEach(function(item){
+                    //console.log(item);
+                    item.remove();
+                });
+            } else {
+                //show all options, clear search text box
+                //Do nothing.
+            }
+            showAllRcBoxes(tSearchId, pDiv);
+        }
+    };
+
+    function addOption(pDiv, optionType, optionLabel, strID, i, zIdx){
+        optionLabel = optionLabel.toProperCase();
+        let rcInput = document.createElement("input");
+        rcInput.type = optionType;
+        rcInput.id = "rci_" + strID + "_" + i;
+        rcInput.name = strID; 
+        rcInput.value = optionLabel;
+        rcInput.className = "rciInput";
+        rcInput.style.zIndex = zIdx;
+
+        //ADD ONCLICK FUNCTION TO SHOW EDIT CONTROLS, IF GLOBALEDIT IS SET TO TRUE
+        //check if other is an option, if so will add a text input to enter value
+        //if (txtValue_upper.indexOf("OTHER") > -1) {
+        //    containsOtherOption = true;
+        //};
+
+        let checkMarkSpan = document.createElement("span");
+        checkMarkSpan.className = "checkmark";
+        checkMarkSpan.style.zIndex = zIdx;
+
+        let lblRcInput = document.createElement("label");
+        //lblRcInput.htmlFor = rcInput.id;
+        lblRcInput.name = "lblrc_" + strID;
+        lblRcInput.className = "lblRcInput";
+        lblRcInput.style.zIndex = zIdx;
+        lblRcInput.innerHTML = rcInput.outerHTML + checkMarkSpan.outerHTML + rcInput.value;
+
+        pDiv.appendChild(lblRcInput);
+        //pDiv.appendChild(rcInput);
+        return rcInput.id;
+    }
+
+    function lastIdIndex(elemList){
+        let lastIdx = 0;
+        elemList.forEach(function(elem, j){
+            //ids are of the form str1_str2_number
+            let idBreakdown = elem.id.split("_");
+            lastIdx = idBreakdown[2] > lastIdx ? idBreakdown[2] : lastIdx;
+        });
+        return parseInt(lastIdx);
+    }
+
+    function updateOption(pDiv, tSearchId, rc_Type){
+        let selectedItems;
+        selectedItems = showSelected(tSearchId, pDiv, rc_Type, false); //do not reset the search text
+        let tSearchText = document.getElementById(tSearchId);
+        //console.log(tSearchId);
+        //console.log(tSearchText.value);
+
+        let selectedCount = selectedItems.length;
+        if(selectedCount === 0){
+            window.alert("Please select an option to edit.")
+        } else if(selectedCount > 1){
+            window.alert("You can only edit 1 option at a time, please deselect all and pick an option.")
+        } else if(selectedCount === 1){
+            let newValue = tSearchText.value.toProperCase();
+            //console.log("newValue : " & newValue)
+            if ("" === newValue){
+                window.alert("Please enter text to update the selected option with.")
+            } else {
+                //console.log(selectedItems);
+                //console.log(selectedItems[0]);
+                //console.log(selectedItems[0].children[0].innerHTML);
+                let oldValue = selectedItems[0].children[0].value;
+            
+                if (window.confirm(`Are you sure you want to update option:\n${oldValue} \nwith :\n${newValue}`)) {
+                    let eId = selectedItems[0].children[0].id;
+                    //console.log("eId = ", eId);
+                   
+                    let iHTML = String(selectedItems[0].innerHTML);
+                    let elementsHTML = iHTML.split(oldValue);
+                    //iHTML = iHTML.replace(oldValue, "*$*"); //Must have this intermediate step
+                    //iHTML = iHTML.replace("*$*", newValue);
+                    //console.log("Replace : ", iHTML)
+                    iHTML = elementsHTML[0] + newValue + elementsHTML[1] + newValue;
+                    selectedItems[0].innerHTML = iHTML; //elementsHTML[0] + newValue;
+                    selectedItems[0].children[0].checked = true;
+                    //console.log(selectedItems[0].children[0]);
+                    //console.log(elementsHTML);
+                    selectedItems = showSelected(tSearchId, pDiv, rc_Type, true);
+
+                    //TODO: log the change.
+                } else {
+                    //show all options, clear search text box
+                    //Do nothing.
+                };
+            }
+        
+        };
+    }
+
     /* CREATES THE SEARCH HELPERS: SEARCH TEXT AND ASSOCIATED BUTTONS */
     function searchHelp(parentDiv, strId, rcType){
         //add search box with helper buttons
@@ -545,7 +784,8 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         btnShowSelected.className = "button";
         btnShowSelected.id = strId + "_btnShowSelected";
         btnShowSelected.onclick = function (event){
-            showSelected(txtSearchId, parentDiv, rcType);
+            let seletedItems;
+            seletedItems = showSelected(txtSearchId, parentDiv, rcType);
         }
         btnShowSelected.style.zIndex = zIndex;
 
@@ -567,17 +807,96 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         };
         btnReset.style.zIndex = zIndex;
 
+        //ADD EDIT BUTTONS AND EDIT DIV ---------------
+        //Add new option
+        let btnAdd = document.createElement("button");
+        btnAdd.innerHTML = "Add";
+        btnAdd.className = "button";
+        btnAdd.id = strId + "_btnAdd";
+        btnAdd.onclick = function (event){
+            //resetAll(txtSearchId, parentDiv, rcType)
+            //Get count of fieldsOptions and add 1 then set as idx
+            let optsList = parentDiv.querySelectorAll('input[type="' + rcType + '"]');
+            let lastOptsIdx = lastIdIndex(optsList) + 1;
+            if (window.confirm(`Are you sure you want to add this option!`)) {
+                let rcInput_Id;
+                rcInput_Id = addOption(parentDiv, rcType, strSearch.value, strId, lastOptsIdx, zIndex);
+                document.getElementById(rcInput_Id).checked = true;
+                strSearch.value = "";
+                //console.log(rcInput_F);
+            } else {
+                //show all options, clear search text box
+                //Do nothing.
+            }
+            //showAllRcBoxes(txtSearchId, parentDiv);
+        };
+        btnAdd.style.zIndex = zIndex;
+
+        //Delete option
+        let btnDelete = document.createElement("button");
+        btnDelete.innerHTML = "Delete";
+        btnDelete.className = "button";
+        btnDelete.id = strId + "_btnDelete";
+        btnDelete.onclick = function (event){
+            deleteOptions(parentDiv, txtSearchId, rcType)
+        };
+        btnDelete.style.zIndex = zIndex;
+
+        //Update Option
+        let btnUpdate = document.createElement("button");
+        btnUpdate.innerHTML = "Update";
+        btnUpdate.className = "button";
+        btnUpdate.id = strId + "_btnUpdate";
+        btnUpdate.onclick = function (event){
+            updateOption(parentDiv, txtSearchId, rcType);
+        };
+        btnUpdate.style.zIndex = zIndex;
+
+        //Exit Edit Mode for Option
+        let btnExitedit = document.createElement("button");
+        btnExitedit.innerHTML = "Exit";
+        btnExitedit.className = "button";
+        btnExitedit.id = strId + "_btnExitedit";
+        btnExitedit.onclick = function (event){
+            exitEditMode(parentDiv, txtSearchId);
+        };
+        btnExitedit.style.zIndex = zIndex;
+
+        //SEARCH DIV
         let qDiv = document.createElement("div");
         qDiv.appendChild(btnClear);
         qDiv.appendChild(btnShowSelected);
         qDiv.appendChild(btnShowAll);
         qDiv.appendChild(btnReset);
-        qDiv.appendChild(strSearch);
+        qDiv.name = "searchButtonsDiv";
+        qDiv.id = strId + "_" + qDiv.name;
         qDiv.style.zIndex = zIndex;
         //Add the above components to the form
         parentDiv.appendChild(qDiv);
-    }
 
+        qDiv = document.createElement("div");
+        qDiv.appendChild(strSearch);
+        qDiv.name = "optSearchTextDiv"; 
+        qDiv.id = strId + "_" + qDiv.name;
+        qDiv.style.zIndex = zIndex;
+        parentDiv.appendChild(qDiv);
+
+        //EDIT DIV
+        qDiv = document.createElement("div");
+        //Add the above components to the form
+        qDiv.appendChild(btnAdd);
+        qDiv.appendChild(btnUpdate);
+        qDiv.appendChild(btnDelete);
+        qDiv.appendChild(btnExitedit);
+        qDiv.name = "editOptionsDiv"; //.style.display = "none";
+        qDiv.id = strId + "_" + qDiv.name;
+        qDiv.className = "divEdit";
+        qDiv.style.zIndex = zIndex;
+        qDiv.style.display = "none"; //make sure edit div is hidden
+        //Add the above components to the form
+        parentDiv.appendChild(qDiv);
+        
+    }
 
     //Calls functions that build each element, in the HTML_Form_Build_Stack
     toBuildArray.forEach(function(obj){
@@ -623,8 +942,17 @@ function buildForm(toBuildArray){ //jsonSchemaText){
                 break;
             
         } 
-        
     });
+
+    //IF THERE IS ONLY 1 GROUP, OPEN IT
+    let allMainGroups = document.querySelectorAll('input[name="ddc_rc"]');
+    //console.log(allMainGroups);
+    //console.log(allMainGroups.length);
+    if (allMainGroups.length === 2){
+        allMainGroups[0].checked = true;
+        //Comment bottom line out this is for debugging n testing
+        openAllInnerGroups();
+    }
 
     /*ADD SUBMIT BUTTON NOW, MUST BE OUTSIDE THE FOR LOOP */
     let btnSubmit = document.createElement("input");
