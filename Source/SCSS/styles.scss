@@ -310,6 +310,16 @@ input:checked {
 } */
 
 
+.flex-container {
+  display: flex;
+}
+
+.fill-width {
+  flex: 1;
+  //display: block;
+  width: 100%;
+}
+
 .divField {
   padding: 0.75em 0.5em 0.75em 0.5em;  
 }
@@ -319,7 +329,7 @@ input:checked {
 }
 
 //For function bar, stick at top of screen
-.divBtnCollapse_sticky {
+.divBtnFormToolbar_Sticky {
   position: -webkit-sticky; //-webkit-sticky; for safari needs the webkit
   position: -moz-sticky;
   position: -ms-sticky;

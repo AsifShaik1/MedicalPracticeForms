@@ -195,34 +195,42 @@ function buildForm(toBuildArray){ //jsonSchemaText){
     let eForm = document.querySelector("form");
 
     //Function Close All Groups
-    function CloseAllMainGroups(){
+    function CloseAllMainGroups(closeGroups = true){
         //console.log("btnCollapse onClick")
         let gblCloseAll = document.querySelectorAll('input[name="ddc_rc"]');
         //console.log(gblCloseAll)
         gblCloseAll.forEach(function(obj_i){
-            //console.log(obj_i)
-            obj_i.checked = false;
-            window.scroll(0,0); //scroll to top
+            if(closeGroups){
+                //console.log(obj_i)
+                obj_i.checked = false;
+            } else {
+                obj_i.checked = true;
+            }
         });
+        window.scroll(0,0); //scroll to top
         //let fGroups = document.getElementsByName("ddc_rc");
         //console.log(fGroups);
         //console.log(event)
     };
 
-    function CloseAllInnerGroups(){
+    function CloseAllInnerGroups(closeInnerGroups = true){
         //console.log("btnCollapseInner onClick")
         let innCloseAll = document.querySelectorAll('input[name="ddc_rc_inner"]');
         //console.log(innCloseAll)
         innCloseAll.forEach(function(obj_i){
             //console.log(obj_i)
-            obj_i.checked = false;
+            if (closeInnerGroups){
+                obj_i.checked = false;
+            } else {
+                obj_i.checked = true;
+            }
         });
         //let fGroups = document.getElementsByName("ddc_rc");
         //console.log(fGroups);
         //console.log(event)
     };
 
-    function openAllInnerGroups(){
+    /* function openAllInnerGroups(){
         //console.log("btnCollapseInner onClick")
         let innCloseAll = document.querySelectorAll('input[name="ddc_rc_inner"]');
         //console.log(innCloseAll)
@@ -230,7 +238,7 @@ function buildForm(toBuildArray){ //jsonSchemaText){
             //console.log(obj_i)
             obj_i.checked = true;
         });
-    };
+    }; */
 
     if(eForm === null){
         //CREATE ALL THE FOLLOWING ELEMENTS ONCE ONLY
@@ -247,10 +255,10 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         document.body.appendChild(hHeading);
         //divHeader.appendChild(hHeading);
 
-        let divBtnCollapse = document.createElement("div");
-        divBtnCollapse.id = "divBtnCollapse";
-        divBtnCollapse.className = "divBtnCollapse_sticky"; //So these buttons stick to the top
-        divBtnCollapse.style.zIndex = gbl_Z_Index + 2;
+        let divBtnFormToolbar = document.createElement("div");
+        divBtnFormToolbar.id = "divBtnFormToolbar";
+        divBtnFormToolbar.className = "divBtnFormToolbar_Sticky"; //So these buttons stick to the top
+        divBtnFormToolbar.style.zIndex = gbl_Z_Index + 2;
 
         //Close all main outer Groups
         let btnCollapse = document.createElement("button");
@@ -258,7 +266,16 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         btnCollapse.innerHTML = '<i class="fa fa-angle-double-up" title="Close Outer Groups"></i>'; //"Close Groups";
         btnCollapse.className = "button midnightColour";
         btnCollapse.style.zIndex = gbl_Z_Index + 3;
-        btnCollapse.onclick = function(event){CloseAllMainGroups()}
+        btnCollapse.onclick = function(event){CloseAllMainGroups(true)}
+
+        //Open all main outer Groups
+        let btnExpand = document.createElement("button");
+        btnExpand.id = "btnExpandGroups";
+        btnExpand.innerHTML = '<i class="fa fa-angle-double-down" title="Open Outer Groups"></i>'; //"Open Groups";
+        btnExpand.className = "button midnightColour";
+        btnExpand.style.zIndex = gbl_Z_Index + 3;
+        btnExpand.onclick = function(event){CloseAllMainGroups(false)}
+
 
         //Close all inner groups
         let btnCollapseInner = document.createElement("button");
@@ -266,12 +283,43 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         btnCollapseInner.innerHTML = '<i class="fa fa-angle-up" title="Close Inner Groups"></i>'; //"Close Inner Groups";
         btnCollapseInner.className = "button midnightColourLess10Percent";
         btnCollapseInner.style.zIndex = gbl_Z_Index + 3;
-        btnCollapseInner.onclick = function(event){CloseAllInnerGroups()};
+        btnCollapseInner.onclick = function(event){CloseAllInnerGroups(true)};
 
-        divBtnCollapse.appendChild(btnCollapse);
-        divBtnCollapse.appendChild(btnCollapseInner);
-        //divHeader.appendChild(divBtnCollapse);
-        document.body.appendChild(divBtnCollapse)
+        //Open all inner groups
+        let btnExpandInner = document.createElement("button");
+        btnExpandInner.id = "btnOpenInnerGroups";
+        btnExpandInner.innerHTML = '<i class="fa fa-angle-down" title="Open Inner Groups"></i>'; //"Close Inner Groups";
+        btnExpandInner.className = "button midnightColourLess10Percent";
+        btnExpandInner.style.zIndex = gbl_Z_Index + 3;
+        btnExpandInner.onclick = function(event){CloseAllInnerGroups(false)};
+
+        //Show all selected options only in all groups
+        let btnShowSelected_AG = document.createElement("button");
+        btnShowSelected_AG.id = "btnShowSelected_AllGroups";
+        btnShowSelected_AG.innerHTML = '<i class="fa fa-check-circle" title="Show Selected Options in All Groups"></i>'; 
+        btnShowSelected_AG.className = "button"; //  midnightColourLess10Percent";
+        btnShowSelected_AG.style.zIndex = gbl_Z_Index + 3;
+        btnShowSelected_AG.onclick = function(event){showSelected_AllGroups()};
+
+
+        //Show all selected options only in all groups
+        let btnShowAll_AG = document.createElement("button");
+        btnShowAll_AG.id = "btnShowAll_AllGroups";
+        btnShowAll_AG.innerHTML = '<i class="fa fa-tasks" title="Show All Options in All Groups"></i>'; 
+        btnShowAll_AG.className = "button"; //  midnightColourLess10Percent";
+        btnShowAll_AG.style.zIndex = gbl_Z_Index + 3;
+        btnShowAll_AG.onclick = function(event){showAllRcBoxes_AllGroups()};
+
+
+        //ADD BUTTONS TO THE DIV
+        divBtnFormToolbar.appendChild(btnCollapse);
+        divBtnFormToolbar.appendChild(btnCollapseInner);
+        divBtnFormToolbar.appendChild(btnExpandInner);
+        divBtnFormToolbar.appendChild(btnExpand);
+        divBtnFormToolbar.appendChild(btnShowSelected_AG);
+        divBtnFormToolbar.appendChild(btnShowAll_AG);
+        //divHeader.appendChild(divBtnFormToolbar);
+        document.body.appendChild(divBtnFormToolbar)
         //document.body.appendChild(divHeader);
 
         //Create form element, as this is the first time this code is running.
@@ -360,6 +408,7 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         let zIndex = gbl_Z_Index;
         let tDiv = document.createElement("div");
         tDiv.className = "divField";
+        //tDiv.classList.add("divField", "flex-container");
         tDiv.style.zIndex = zIndex;
         parentDiv.appendChild(tDiv);
         let lblTxtInput = document.createElement("label");
@@ -369,7 +418,8 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         lblTxtInput.style.zIndex = zIndex;
         let txtInput = document.createElement("input");
         txtInput.type = fieldType;
-        txtInput.className = "txtInput";
+        txtInput.classList.add("txtInput", "fill-width");
+        //txtInput.className = "txtInput";
         txtInput.id = "txtInput_" + strIdentifier;
         txtInput.style.zIndex = zIndex;
         tDiv.appendChild(lblTxtInput);
@@ -382,6 +432,7 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         let tDiv = document.createElement("div");
         let zIndex = gbl_Z_Index;
         tDiv.className = "divField";
+        //tDiv.classList.add("divField", "flex-container");
         tDiv.style.zIndex = zIndex;
         parentDiv.appendChild(tDiv);
         //strIdentifier will be the key to this object and should be unique.
@@ -492,6 +543,54 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         //return selectedRC;
         return selectedOptDivs;
     }
+    
+    /* SHOW CHECKED CHECKBOXES ONLY */
+    function showSelected_AllGroups() {
+        //Clear The text in the search text box
+        let a, rbx, cbx;
+        //if(boolResetSearchText){
+            //let searchTxt;
+            //searchTxt = document.getElementById(txtSearchId);
+            //searchTxt.value = "";
+        //    clearTextSearch(strId);
+        //} 
+        
+        //Get all the label elements in the parent div
+        a = document.querySelectorAll('.lblRcInput'); //Selecting by classname
+        //console.log(`a.length = ${a.length}`)
+        let optsDivs = document.querySelectorAll(".optDiv");
+
+        //let selectedRC = [];
+        let selectedOptDivs = [];
+        for (i = 0; i < a.length; i++) {
+            //chk_bx = a[i].getElementsByTagName("input")
+            //was ... chk_bx = a[i].querySelectorAll('input[type="checkbox"]:checked');
+            rbx = a[i].querySelectorAll('input[type="radio"]:checked');
+            cbx = a[i].querySelectorAll('input[type="checkbox"]:checked');
+            
+            //Must interpret null as 0 hence non-strict !=
+            if (rbx.length != 0 || cbx.length != 0){
+                //console.log("i: " + i + "; rc_bx.length: " + rc_bx.length);
+                //console.log("rc_bx.checked: " + rc_bx.checked);
+                //console.log("a[" + i +"].innerHTML: " + a[i].innerHTML);
+                //console.log("rc_bx.length: " + rc_bx.length);
+                //console.log("rc_bx.item: " + rc_bx.item(0));
+                //console.log("rc_bx.nameditem: " + rc_bx.namedItem);
+                //console.log("rc_bx.tagName: " + rc_bx.tagName);
+    
+                //a[i].style.display = "";
+                optsDivs[i].style.display = "";
+                //selectedRC.push(a[i]);
+                selectedOptDivs.push(optsDivs[i]);
+            } 
+            else {
+                //a[i].style.display = "none";
+                optsDivs[i].style.display = "none";
+            }
+        }
+        //return selectedRC;
+        return selectedOptDivs;
+    }
 
     /* SHOW ALL CHECKBOXES ONLY */
     function showAllRcBoxes(strId, pDiv) {
@@ -514,6 +613,28 @@ function buildForm(toBuildArray){ //jsonSchemaText){
         }
     }
     
+    /* SHOW ALL CHECKBOXES ONLY */
+    function showAllRcBoxes_AllGroups() {
+        ////Clear The text in the search text box
+        //let searchTxt; //, a;
+        //searchTxt = document.getElementById(txtSearchId);
+        //searchTxt.value = "";
+        //clearTextSearch(strId);
+
+
+        //a = pDiv.getElementsByTagName("label");
+        let optsDivs = document.querySelectorAll(".optDiv");
+
+        //for (i = 0; i < a.length; i++) {
+        //console.log(`optsDivs.length = ${optsDivs.length}`);
+        for (i = 0; i < optsDivs.length; i++) {
+            //a[i].style.display = "";
+            //console.log(optsDivs[i]);
+            optsDivs[i].style.display = "";
+        }
+    }
+
+
     /* CLOSE ALL CHECKBOXES/RADIO BUTTONS IN DIV  */
     function resetAll(strId, pDiv, rcInputType) {
 
@@ -888,7 +1009,7 @@ function buildForm(toBuildArray){ //jsonSchemaText){
 
         let strSearch = document.createElement("input");
         strSearch.placeholder = "Search..."; 
-        strSearch.classList.add("txtInput", "txtSearch");
+        strSearch.classList.add("txtInput", "txtSearch", "fill-width");
         let txtSearchId = strId + "Search";
         strSearch.id = txtSearchId;
         strSearch.onkeyup = function (event){
@@ -1103,7 +1224,8 @@ function buildForm(toBuildArray){ //jsonSchemaText){
     if (allMainGroups.length === 2){
         allMainGroups[0].checked = true;
         //Comment bottom line out this is for debugging n testing
-        openAllInnerGroups();
+        //openAllInnerGroups();
+        CloseAllInnerGroups(false); //Opens the group
     }
 
     /*ADD SUBMIT BUTTON NOW, MUST BE OUTSIDE THE FOR LOOP */
