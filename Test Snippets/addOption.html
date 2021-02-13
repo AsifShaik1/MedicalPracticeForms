@@ -1,0 +1,66 @@
+<!doctype HTML5>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="../CSS/styles.css"> -->
+    </head>
+    <body>
+
+        <script>
+            let div = document.createElement("div");
+            let oType = "checkbox";
+            let oLabel = "Testing Option";
+            let sID = "test";
+            let idx = 1;
+            let bAddEL = true;
+            addOption(div, oType, oLabel, sID, idx, 1, bAddEL);
+            document.body.appendChild(div);
+
+            function enableButtons_AddDelete(strId){
+                console.log("enableButtons_AddDelete: " + strId);
+                let checkedCount = 1 ;//document.querySelectorAll(`input[name="${strId}"]:checked`).length
+            }
+
+            function addOption(pDiv, optionType, optionLabel, strID, i, zIdx, boolAddClickEvent){
+                //optionLabel = optionLabel.toProperCase();
+                let rcInput = document.createElement("input");
+                rcInput.type = optionType;
+                rcInput.id = "rci_" + strID + "_" + i;
+                rcInput.name = strID; 
+                rcInput.value = optionLabel;
+                rcInput.className = "rciInput";
+                rcInput.style.zIndex = zIdx;
+                if(boolAddClickEvent){
+                    //rcInput.addEventListener("click", enableButtons_AddDelete(strID));
+                    rcInput.onclick = function(event){
+                    enableButtons_AddDelete(strID);
+                    };
+                    console.log(rcInput);
+                } else{
+                    console.log(strID + " Click event listener not added...");
+                }
+
+
+                let checkMarkSpan = document.createElement("span");
+                checkMarkSpan.className = "checkmark";
+                checkMarkSpan.style.zIndex = zIdx;
+
+                let lblRcInput = document.createElement("label");
+                lblRcInput.htmlFor = rcInput.id;
+                lblRcInput.name = "lblrc_" + strID;
+                lblRcInput.className = "lblRcInput";
+                lblRcInput.style.zIndex = zIdx;
+                //lblRcInput.innerHTML =  rcInput.outerHTML + checkMarkSpan.outerHTML + rcInput.value;
+                lblRcInput.innerHTML =  rcInput.value;
+
+                pDiv.appendChild(rcInput);
+                pDiv.appendChild(lblRcInput);
+                
+                return rcInput.id;
+            }
+
+        </script>
+
+    </body>
+</html>

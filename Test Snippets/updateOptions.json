@@ -1,42 +1,8 @@
 {
-    "gender":{
-        "title": "Gender",
-        "type": "radio",
-        "required": true,
-        "options" : ["male", "female", "transgender"]
-    },
     "ethnicity":{
         "title": "Ethnicity",
         "type": "radio",
         "required": true,
         "options" : ["african", "indian", "caucasian", "asian", "coloured", "mixed"]
-    },
-    "medAid":{
-        "title": "Medical Aid",
-        "type": "radio",
-        "required": true,
-        "options" : ["none", "other", "bonitas", "discovery", "gems", "sanlam"]
-    },
-    "symptoms":{
-        "title": "symptoms",
-        "type": "checkbox",
-        "required": true,
-        "options": ["cough", 
-            "heavy chest", 
-            "tight chest", 
-            "runny nose", 
-            "headaches", 
-            "joint pain", 
-            "rash", 
-            "insect sting"
-        ]
-    },
-    "tests" : {
-        "title": "Tests Required",
-        "type": "checkbox",
-        "required": true,
-        "options":["glucose", 
-            "cholesterol"
-        ]
-    }    
+    }
 }
